@@ -26,4 +26,4 @@ app.use('/jv', javfinder_1.default);
 app.get('/', (req, res) => {
     res.send('data');
 });
-app.listen(8080);
+app.listen(3000);
