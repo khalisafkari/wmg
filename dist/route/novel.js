@@ -63,4 +63,14 @@ app.route('/posts')
         res.status(404).send({ code: 404, message: 'limit' });
     }
 }));
+app.route('/post')
+    .get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield novel_1.Posts.Posts({ uri: req.query.url });
+        res.status(200).send(data);
+    }
+    catch (error) {
+        res.status(403).send({ code: 403, message: 'limit' });
+    }
+}));
 exports.default = app;

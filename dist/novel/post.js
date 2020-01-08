@@ -30,6 +30,28 @@ class Post {
             }
             return data;
         });
+        this.Posts = ({ uri }) => __awaiter(this, void 0, void 0, function* () {
+            const url = yield _1.default.get(uri);
+            const $ = cheerio_1.default.load(url.data);
+            const detail = {
+                title: $('.content article header h1').text().trim(),
+                image: $('.content article .entry-content .maininfo .imgprop img').attr('src'),
+                render: $('.content article .entry-content .maininfo span p').text().trim(),
+            };
+            const posts = $('.content article .entry-content .bxcl ul li a').map((index, item) => {
+                return ({
+                    _id: $(item).attr('href'),
+                    _title: $(item).text(),
+                    _number: Number($(item).text().replace(/\D/g, ''))
+                });
+            }).get();
+            const data = {
+                detail,
+                data: posts.sort((a, b) => { return a._number - b._number; }),
+                length: posts.length
+            };
+            return data;
+        });
     }
 }
 exports.default = new Post();
