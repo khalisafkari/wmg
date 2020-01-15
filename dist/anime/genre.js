@@ -22,25 +22,30 @@ class Genre {
             const data = $('.col-md-3.box-content #list-genre .box-body a').map((index, item) => {
                 var _a;
                 return ({
-                    _id: (_a = $(item).attr('href')) === null || _a === void 0 ? void 0 : _a.replace(/((http(s?))\:\/\/)nanime.tv\/genre\//g, '').replace('/', ''),
+                    // _id:$(item).attr('href')?.replace(/((http(s?))\:\/\/)nanime.tv\/genre\//g,'')
+                    // .replace('/','').replace(/genre\//g,''),
+                    _id: (_a = $(item).attr('href')) === null || _a === void 0 ? void 0 : _a.replace(/\/genre\//g, ""),
                     _title: $(item).text().trim()
                 });
             }).get();
             return data;
         });
         this.PostByGenre = ({ genre, page }) => __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const url = yield _1.default.get(`/genre/${genre ? genre : 'action'}/page/${page ? page : 1}`);
             const $ = cheerio_1.default.load(url.data);
             const posts = $('.col-md-7.box-content .col-sm-3.content-item').map((index, item) => {
                 return ({
                     _id: $(item).find('a').attr('href'),
-                    _title: $(item).find('div').eq(1).text().trim(),
+                    _title: $(item).find('h3').contents().eq(-1).text().trim(),
                     _image: $(item).find('a div img').attr('src'),
                     _episode: $(item).find('.episode div').eq(0).text().trim(),
                     _rating: $(item).find('.episode div').eq(1).text().trim()
                 });
             }).get();
-            const total = Number($('.col-md-7.box-content .col-md-12.text-center div a').eq(-2).text());
+            const total = Number((_a = $('.col-md-7.box-content .col-md-12.text-center div a').eq(-1).attr('href')) === null || _a === void 0 ? void 0 : _a.replace(/\D/g, ""));
+            if (posts.length < 1)
+                throw new Error("limit");
             const data = {
                 data: posts,
                 length: posts.length,

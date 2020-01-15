@@ -15,16 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = __importDefault(require("."));
 const cheerio_1 = __importDefault(require("cheerio"));
 const List = () => __awaiter(void 0, void 0, void 0, function* () {
-    const url = yield _1.default.get("/list-semua-anime");
+    const url = yield _1.default.get("/index");
     const $ = cheerio_1.default.load(url.data);
-    const data = [];
-    $('.col-md-6 a').each((index, item) => {
-        if ($(item).attr('title')) {
-            data.push({
-                _id: $(item).attr('href'),
-                _title: $(item).attr('title')
-            });
-        }
+    const data = $('.box-body .col-md-6 a').map((index, item) => {
+        return ({
+            _id: $(item).attr('href'),
+            _title: $(item).text().trim()
+        });
     }).get();
     return data;
 });

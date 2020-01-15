@@ -19,13 +19,14 @@ class Years {
         this.Years = () => __awaiter(this, void 0, void 0, function* () {
             const url = yield _1.default.get("");
             const $ = cheerio_1.default.load(url.data);
-            const data = $('.col-md-2.box-content')
+            const data = $('.col-md-3.box-content')
                 .find('div')
                 .eq(-1)
                 .find('.box-body a')
                 .map((index, item) => {
+                var _a;
                 return ({
-                    _id: $(item).attr('href'),
+                    _id: (_a = $(item).attr('href')) === null || _a === void 0 ? void 0 : _a.replace(/\/year_\//g, ''),
                     _title: Number($(item).text().replace(/\D/g, ""))
                 });
             }).get();
@@ -37,7 +38,7 @@ class Years {
             const posts = $('.col-md-7.box-content .col-sm-3.content-item').map((index, item) => {
                 return ({
                     _id: $(item).find('a').attr('href'),
-                    _title: $(item).find('div').eq(1).text().trim(),
+                    _title: $(item).find('h3').contents().eq(-1).text().trim(),
                     _image: $(item).find('a div img').attr('src'),
                     _episode: $(item).find('.episode div').eq(0).text().trim(),
                     _rating: $(item).find('.episode div').eq(1).text().trim()
