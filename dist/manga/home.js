@@ -26,6 +26,13 @@ class Home {
                 return ({
                     _id: $(item).find('a').attr('href'),
                     _title: $(item).find('.fixyear h2').text().trim(),
+                    _time: {
+                        _i: $(item).find('.fixyear span').eq(0).contents().eq(-1).text().trim(),
+                        _stat: $(item).find('.fixyear span').eq(0).contents().eq(-1).text().trim().search(/(hours|min)/gi) != -1 ? true : false
+                    },
+                    _chapter: $(item).find('.fixyear span').contents().eq(-1).text().trim(),
+                    _project: true,
+                    _type: $(item).find('.typepost').text(),
                     _image: ((_a = $(item).find('a div img').attr('src')) === null || _a === void 0 ? void 0 : _a.replace(/(http(s?)):\/\//gi, `https://i${hash_1.getRandomInt(3)}.wp.com/`)) + '?strip=all'
                 });
             }).get();
@@ -34,6 +41,13 @@ class Home {
                 return ({
                     _id: $(item).find('a').attr('href'),
                     _title: $(item).find('.fixyear h2').text().trim(),
+                    _time: {
+                        _i: $(item).find('.fixyear span').eq(0).contents().eq(-1).text().trim(),
+                        _stat: $(item).find('.fixyear span').eq(0).contents().eq(-1).text().trim().search(/(hours|min)/gi) != -1 ? true : false
+                    },
+                    _project: false,
+                    _chapter: $(item).find('.fixyear span').contents().eq(-1).text().trim(),
+                    _type: $(item).find('.typepost').text(),
                     _image: ((_a = $(item).find('a div img').attr('src')) === null || _a === void 0 ? void 0 : _a.replace(/(http(s?)):\/\//gi, `https://i${hash_1.getRandomInt(3)}.wp.com/`)) + '?strip=all'
                 });
             }).get();

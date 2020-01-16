@@ -43,7 +43,7 @@ class Genre {
                     _rating: $(item).find('.episode div').eq(1).text().trim()
                 });
             }).get();
-            const total = Number((_a = $('.col-md-7.box-content .col-md-12.text-center div a').eq(-1).attr('href')) === null || _a === void 0 ? void 0 : _a.replace(/\D/g, ""));
+            const total = Number((_a = $('.col-md-7.box-content .col-md-12.text-center div a').eq(-2).attr('href')) === null || _a === void 0 ? void 0 : _a.replace(/\D/g, ""));
             if (posts.length < 1)
                 throw new Error("limit");
             const data = {
